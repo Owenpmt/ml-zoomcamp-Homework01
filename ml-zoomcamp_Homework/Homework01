@@ -2,29 +2,30 @@ import pandas as pd
 import numpy as np
 from numpy.linalg import cond
 
-#Get panda verion no
-print("Q1 panda version: ", pd.__version__)
+#Q1 Pandas Verion
+print("pandas version is: ", pd.__version__)
 
 #Set data to read csv file
 data = pd.read_csv("C:/Users/owent/Documents/Python/ml-zoomcamp_Homework/laptops.csv")
 
-#tuple getting number of rows and columns
-print("Q2 Number of records: ",data.shape)
+#Q2 Number of records
+print("The number of records in the collection is: ",data.shape)
 
+#Q3 Laptop Brands
+print("The number of laptop brands in the collection is: ", data['Brand'].nunique())
 
-print("Q3 Number of laptop brands: ", data['Brand'].nunique())
-
-#looping through data columns and adding 1 to missingValues for each column that has a null
+#Q4 Number of missing values
 missingValues = 0
 for col in data.columns:
     if data[col].isnull().any():
         missingValues = missingValues + 1
-print("Q4 Number of missing values", missingValues)
+print("The number of missing values in the collection is", missingValues)
 
-print("Q5 Maximum final price: ", data[data["Brand"] == "Dell"]["Final Price"].max())
+#Q5 Maximum final price:
+print("The maximum final price in the collection is: ", data[data["Brand"] == "Dell"]["Final Price"].max())
 
 
-
+#Q6 Median value of screen before and after most common number
 screenMedianValue = data['Screen'].median()
 mostCommonScreenValueBefore = data['Screen'].mode()
 
@@ -33,11 +34,10 @@ filledData = data.fillna(fillValues)['Screen']
 
 screenMedianValueNoNan = filledData.median()
 
-print("Q6 Median value of screen: ", "The median value before is ", screenMedianValue, 
+print("The median value before is ", screenMedianValue, 
       ", and the median value after is ", screenMedianValueNoNan)
 
-
-#Put the Ram, storage and screen columns of all Innjoo laptops in an array called X. 
+#Q7 Sum of weights
 innjooData = data[data['Brand'] == 'Innjoo']
 X = innjooData[['RAM', 'Storage', 'Screen']]
 
@@ -48,4 +48,4 @@ Y = [1100, 1300, 800, 900, 1000, 1100]
 
 W = (XTX.dot(X.T)) * Y
 
-print("Q7 Sum of weights", np.sum(W))
+print("Sum of weights", np.sum(W))
